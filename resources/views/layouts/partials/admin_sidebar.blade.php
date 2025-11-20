@@ -19,7 +19,7 @@
                <div class="menu-title"> User Management/System Setting</div>
             </a>
             <ul>
-               @can(['User-list'])
+               @can(['user-list'])
                <li class="@if (Route::is('user.*')) mm-active @endif">
                   <a href="{{route('user.index')}}"><i class="bi bi-arrow-right-short"></i>User Information</a>
                </li>
