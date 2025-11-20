@@ -23,6 +23,18 @@ class FolderController extends Controller
         }
     }
 
+    public function search(Request $request)
+    {
+        $keyword = $request->search;
+
+        $folders = Folder::where('name', 'LIKE', "%$keyword%")->get();
+
+        return response()->json([
+            'folders' => $folders
+        ]);
+    }
+
+
     public function store(Request $request)
     {
         $request->validate(['name' => 'required|string|max:200']);
