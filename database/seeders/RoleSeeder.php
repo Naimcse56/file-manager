@@ -1,0 +1,24 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+
+class RoleSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        Role::create(['name' => 'Super Admin','guard_name' => 'web']);
+        Role::create(['name' => 'Admin','guard_name' => 'web']);
+        Role::create(['name' => 'CI','guard_name' => 'web']);
+        Role::create(['name' => 'SI','guard_name' => 'web']);
+        Role::create(['name' => 'DS','guard_name' => 'web']);
+        Role::create(['name' => 'CP','guard_name' => 'web']);
+    }
+}

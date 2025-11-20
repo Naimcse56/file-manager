@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    /* display: flex; */
+    justify-content: center;
+    padding: 20px;
+}
+
+.form-container {
+    width: 100%;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    flex: 0 0 15%;
+    padding-right: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group label span.required {
+    color: red;
+} */
+
+/* Style for all input and select controls */
+input[type="text"],
+select {
+    flex: 1;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Specific styling for the date inputs (to include the calendar icon) */
+.input-with-icon {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    background-color: #fff;
+}
+
+.input-with-icon input[type="text"] {
+    border: none;
+    padding: 10px;
+    flex: 1;
+}
+
+.calendar-icon {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #777;
+    border-left: 1px solid #ccc;
+}
+
+/* Image Upload Styling */
+.image-upload-group {
+    align-items: flex-start;
+}
+
+.image-preview-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.no-image-placeholder {
+    width: 150px;
+    height: 100px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #777;
+    text-transform: lowercase;
+}
+
+.select-image-button {
+    background-color: #eee;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.image-note {
+    font-size: 12px;
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 0;
+}
+
+
