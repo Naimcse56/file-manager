@@ -12,61 +12,58 @@
     </form>
 
     {{-- Folder List --}}
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>#</th>
-                <th>Folder Name</th>
-                <th>Created At</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($folders as $folder)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $folder->name }}</td>
-                <td>{{ $folder->created_at->format('d-M-Y H:i') }}</td>
-                <td>
-                    {{-- Edit Folder Modal Trigger --}}
-                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editFolderModal{{ $folder->id }}">Edit</button>
+    <div class="row">
+    @forelse($folders as $folder)
+    <div class="col-12 col-lg-4 mb-3">
+        <div class="card shadow-none border radius-15">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="font-30 text-primary"><i class="bx bxs-folder"></i></div>
+                    <div class="ms-auto d-flex align-items-center">
+                        {{-- Edit Folder Button --}}
+                        <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editFolderModal{{ $folder->id }}">Edit</button>
+                        
+                        {{-- Delete Folder Form --}}
+                        <form action="{{ route('folder.delete', $folder->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                <h6 class="mb-0 text-primary">{{ $folder->name }}</h6>
+                <small>Created at: {{ $folder->created_at->format('d-M-Y H:i') }}</small>
+            </div>
+        </div>
+    </div>
 
-                    {{-- Delete Folder Form --}}
-                    <form action="{{ route('folder.delete', $folder->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                    </form>
-                </td>
-            </tr>
-
-            {{-- Edit Folder Modal --}}
-            <div class="modal fade" id="editFolderModal{{ $folder->id }}" tabindex="-1" aria-labelledby="editFolderLabel{{ $folder->id }}" aria-hidden="true">
-              <div class="modal-dialog">
-                <form action="{{ route('folder.update', $folder->id) }}" method="POST">
-                    @csrf
-                    <div class="modal-content">
-                      <div class="modal-header">
+    {{-- Edit Folder Modal --}}
+    <div class="modal fade" id="editFolderModal{{ $folder->id }}" tabindex="-1" aria-labelledby="editFolderLabel{{ $folder->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('folder.update', $folder->id) }}" method="POST">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
                         <h5 class="modal-title" id="editFolderLabel{{ $folder->id }}">Edit Folder</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
+                    </div>
+                    <div class="modal-body">
                         <input type="text" name="name" class="form-control" value="{{ $folder->name }}" required>
-                      </div>
-                      <div class="modal-footer">
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save changes</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div>
                     </div>
-                </form>
-              </div>
-            </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-            @empty
-            <tr>
-                <td colspan="4" class="text-center">No folders found.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+    @empty
+    <div class="col-12 text-center">
+        <p>No folders found.</p>
+    </div>
+    @endforelse
+</div>
+
 </div>
 @endsection
