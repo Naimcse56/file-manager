@@ -9,17 +9,33 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ActivityLogTrait;
+use DataTables;
 
 class FileManagerController extends Controller
 {
     use ActivityLogTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $files = File::whereNull('deleted_at')->where('user_id', auth()->id())->get();
-            $folders = Folder::where('user_id', auth()->id())->get();
-            return view('filemanager.index', compact('files','folders'));
+            if ($request->ajax()) {
+                $data = File::with(['folder:id,name'])->whereNull('deleted_at')->where('user_id', auth()->id());
+
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('size', function ($row) {
+                        return number_format($row->size/1024,2);
+                    })
+                    ->editColumn('name', function ($row) {
+                        return $row->name;
+                    })
+                    ->addColumn('action', function ($row) {
+                        return view('filemanager.component.action', compact('row'));
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+            return view('filemanager.index');
         } catch (\Exception $e) {
             Toastr::error('Unable to fetch files or folders: '.$e->getMessage());
             return back();
@@ -87,53 +103,66 @@ class FileManagerController extends Controller
         }
     }
 
-    public function destroy(File $file)
+    public function destroy(Request $request)
     {
         try {
             DB::beginTransaction();
+            $file = File::find($request->id);
             if ($file->user_id !== auth()->id()) abort(403);
 
             $file->delete();
             $this->logActivity('delete', $file, 'File moved to trash: '.$file->name);
 
             DB::commit();
-            Toastr::success('File moved to trash');
-            return back();
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             DB::rollBack();
-            Toastr::error('File delete failed: '.$e->getMessage());
-            return back();
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 
-    public function trash()
+    public function trash(Request $request)
     {
         try {
-            $files = File::onlyTrashed()->where('user_id', auth()->id())->get();
-            return view('filemanager.trash', compact('files'));
+            if ($request->ajax()) {
+                $data = File::with(['folder:id,name'])->onlyTrashed()->where('user_id', auth()->id());
+
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('size', function ($row) {
+                        return number_format($row->size/1024,2);
+                    })
+                    ->editColumn('name', function ($row) {
+                        return $row->name;
+                    })
+                    ->addColumn('action', function ($row) {
+                        return view('filemanager.component.trash_action', compact('row'));
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+            return view('filemanager.trash');
         } catch (\Exception $e) {
             Toastr::error('Unable to fetch trash: '.$e->getMessage());
             return back();
         }
     }
 
-    public function restore($id)
+    public function restore(Request $request)
     {
         try {
             DB::beginTransaction();
-            $file = File::onlyTrashed()->findOrFail($id);
+            $file = File::onlyTrashed()->findOrFail($request->id);
             if ($file->user_id !== auth()->id()) abort(403);
 
             $file->restore();
             $this->logActivity('restore', $file, 'File restored: '.$file->name);
 
             DB::commit();
-            Toastr::success('File restored successfully');
-            return back();
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             DB::rollBack();
-            Toastr::error('File restore failed: '.$e->getMessage());
-            return back();
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 }

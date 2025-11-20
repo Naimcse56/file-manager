@@ -37,9 +37,9 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::get('/upload', 'uploadPage')->name('file-manager.upload');
         Route::post('/store', 'store')->name('file-manager.store');
         Route::get('/download/{file}', 'download')->name('file-manager.download');
-        Route::post('/restore/{id}', 'restore')->name('file-manager.restore');
+        Route::post('/restore', 'restore')->name('file-manager.restore');
         Route::get('/trash', 'trash')->name('file-manager.trash');
-        Route::post('/delete/{file}', 'destroy')->name('file-manager.delete');
+        Route::post('/delete', 'destroy')->name('file-manager.delete');
     });
 
     /*

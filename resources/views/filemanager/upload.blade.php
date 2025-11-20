@@ -11,6 +11,9 @@
             </ol>
         </nav>
     </div>
+    <div class="ms-auto">
+        <a class="btn btn-sm btn-primary px-5" href="{{ route('file-manager.index') }}"><i class="bi bi-card-list"></i> File List</a>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-8 mx-auto">

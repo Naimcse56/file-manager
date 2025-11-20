@@ -106,31 +106,6 @@
                     {data: 'role.name', name: 'role.name'},
                     {data: 'action', name: 'action', className: 'text-end', orderable: false, searchable: false},
                 ],
-				dom: 'Bfrtip',
-        		buttons: [{
-							extend: 'csv',
-							exportOptions: {
-								columns: ':not(:last-child)' // exclude the last column (action)
-							}
-						},
-						{
-							extend: 'excel',
-							exportOptions: {
-								columns: ':not(:last-child)'
-							}
-						},
-						{
-							extend: 'pdf',
-							exportOptions: {
-								columns: ':not(:last-child)'
-							}
-						},
-						{
-							extend: 'print',
-							exportOptions: {
-								columns: ':not(:last-child)'
-							}
-						}]
             });
             $.fn.dataTable.ext.errMode = () => alert('Error while loading the table data. Please refresh');
                 

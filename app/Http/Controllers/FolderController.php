@@ -88,12 +88,10 @@ class FolderController extends Controller
             $this->logActivity('delete', $folder, 'Folder deleted: ' . $folder->name);
 
             DB::commit();
-            Toastr::success('Folder deleted successfully');
-            return back();
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             DB::rollBack();
-            Toastr::error('Folder deletion failed: ' . $e->getMessage());
-            return back();
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 
