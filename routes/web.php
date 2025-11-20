@@ -13,8 +13,8 @@ Auth::routes(['register' => false]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/mututal-assesments/change-password', [HomeController::class, 'change_password'])->name('change_password');
-    Route::post('/mututal-assesments/update-change-password', [HomeController::class, 'update_change_password'])->name('update_change_password');
+    Route::get('/file-manager/change-password', [HomeController::class, 'change_password'])->name('change_password');
+    Route::post('/file-manager/update-change-password', [HomeController::class, 'update_change_password'])->name('update_change_password');
 });
 
 Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file-manager')->group(function () {
@@ -53,6 +53,7 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::get('/show/{folder}', 'show')->name('folder.show');
         Route::post('/update/{folder}', 'update')->name('folder.update');
         Route::post('/delete', 'destroy')->name('folder.delete');
+        Route::get('/select-list-ajax', 'list_for_select_ajax')->name('folder.list_for_select_ajax');
     });
 
     /*

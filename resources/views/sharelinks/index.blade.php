@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="border p-3 rounded">
-                    <form class="row g-4" method="POST" action="{{route('user.store')}}" enctype="multipart/form-data">
+                    <form class="row g-4" id="createShareForm" method="POST">
                         @csrf
                         <div class="col-xl-12">
                             <label class="form-label">Select File <span class="text-danger">*<span></label>
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="submit text-end">
-                            <button type="Submit" class="btn btn-primary px-5">Create Share Link</button>
+                            <button type="submit" class="btn btn-primary px-5">Create Share Link</button>
                         </div>
                     </form>
 
@@ -113,37 +113,16 @@
             });
         });
 
-        $(document).on('submit', '#createShareForm', function(e) {
+        $(document).on('change', '#file', function(e) {
             e.preventDefault(); // Prevent default form submission
 
-            var form = $(this);
-            var fileId = $('#file').val();
-            var url = `/file-manager/share-links/create/${fileId}`;
-            var formData = form.serialize(); // Serialize form data
+            let fileId = $(this).val();
 
-            var submitBtn = form.find('button[type="submit"]');
-            var originalText = submitBtn.text();
-            submitBtn.prop('disabled', true).text('Processing...');
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        toastr.success(response.message || 'Share link created successfully!');
-                        form[0].reset();
-                    } else {
-                        toastr.error(response.message || 'Something went wrong!');
-                    }
-                },
-                error: function(xhr) {
-                    toastr.error('An error occurred. Please try again.');
-                },
-                complete: function() {
-                    submitBtn.prop('disabled', false).text(originalText);
-                }
-            });
+            if (fileId > 0) {
+                $('#createShareForm').attr('action', `/file-manager/share-links/create/${fileId}`);
+            } else {
+                $('#createShareForm').attr('action', '');
+            }
         });
 
     </script>

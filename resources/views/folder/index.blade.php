@@ -19,14 +19,14 @@
             <div class="card-body">
                 <div class="border p-3 rounded">
                     <form class="row g-4" method="POST" action="{{route('folder.store')}}">
-                        @csrf                        
+                        @csrf
                         <div class="col-xl-12">
                             <label class="form-label" for="name">Folder Name <span class="text-danger">*<span></label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Folder Name" required>
                         </div>
 
                         <div class="submit text-end">
-                            <button type="Submit" class="btn btn-primary px-5">Create Folder</button>
+                            <button type="submit" class="btn btn-primary px-5">Create Folder</button>
                         </div>
                     </form>
 
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button type="Submit" class="btn btn-secondary btn-sm w-100"><i class="bi bi-search"></i> Search</button>
+                            <button type="submit" class="btn btn-secondary btn-sm w-100"><i class="bi bi-search"></i> Search</button>
                         </div>
                     </form>
 

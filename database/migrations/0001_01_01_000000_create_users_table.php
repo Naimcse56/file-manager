@@ -48,6 +48,7 @@ return new class extends Migration
             'name' => 'Mr Super Admin',
             'email' => 'admin@example.com',
             'role_id' => 1,
+            'password_changed_for_first_time' => 1,
             'status' => 1,
             'password' => Hash::make('admin@example.com'),
         ]);

@@ -55,7 +55,7 @@
 
 						<div class="submit text-end">
 							<a href="{{route('user.index')}}" class="btn btn-warning px-5">Back</a>
-							<button type="Submit" class="btn btn-primary px-5">Submit</button>
+							<button type="submit" class="btn btn-primary px-5">Submit</button>
 						</div>
 					</form>
 

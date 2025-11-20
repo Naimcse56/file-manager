@@ -33,10 +33,8 @@ class FolderController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|string|max:200']);
-
-
         try {
+            $request->validate(['name' => 'required|string|max:200']);
             DB::beginTransaction();
             $folder = Folder::create([
                 'name' => $request->name,
@@ -97,5 +95,28 @@ class FolderController extends Controller
             Toastr::error('Folder deletion failed: ' . $e->getMessage());
             return back();
         }
+    }
+
+    public function list_for_select_ajax(Request $request)
+    {
+        $items = Folder::query();
+        if ($request->search != '') {
+            $items = $items->whereLike(['name'], $request->search);
+        }
+        $items = $items->paginate(10,['id','name']);
+        $response = [];
+        foreach($items as $item){
+            $name = $item->name;
+            $response[]  =[
+                'id'    => $item->id,
+                'text'  => $name
+            ];
+        }
+        $data['results'] =  $response;
+        if ($items->count() > 0)
+        {
+            $data['pagination'] =  ["more" => true];
+        }
+        return response()->json($data);
     }
 }
