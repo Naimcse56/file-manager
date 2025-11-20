@@ -9,8 +9,7 @@ use App\Http\Controllers\FolderController;
 use App\Http\Controllers\ShareLinkController;
 use App\Http\Controllers\ActivityLogController;
 
-Auth::routes();
-
+Auth::routes(['register' => false]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -43,7 +42,6 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::post('/delete/{file}', 'destroy')->name('file-manager.delete');
     });
 
-
     /*
     |--------------------------------------------------------------------------
     | FOLDER ROUTES
@@ -57,7 +55,6 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::post('/delete', 'destroy')->name('folder.delete');
     });
 
-
     /*
     |--------------------------------------------------------------------------
     | SHARE LINK ROUTES
@@ -70,8 +67,6 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::get('/view/{token}', 'view')->name('share-links.view');
         Route::post('/delete/{share}', 'destroy')->name('share-links.delete');
     });
-
-
 
     /*
     |--------------------------------------------------------------------------
