@@ -1,4 +1,4 @@
-@extends('layouts.admin_app')
+@extends('layouts.auth_app')
 @section('content')
 <div class="container">
     <h3>This file is password protected</h3>

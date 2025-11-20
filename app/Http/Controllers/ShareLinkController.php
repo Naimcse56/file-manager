@@ -73,26 +73,30 @@ class ShareLinkController extends Controller
         try {
             $link = ShareLink::where('token', $token)->with('file')->firstOrFail();
 
-            if ($link->expires_at && Carbon::now()->greaterThan($link->expires_at)) {
+            // Check expiration
+            if ($link->expires_at && \Carbon\Carbon::now()->greaterThan($link->expires_at)) {
                 Toastr::error('This link has expired.');
                 return redirect()->route('file-manager.index');
             }
 
+            // Check password
             if ($link->password && !session()->has("share_link_access_$token")) {
                 return view('sharelinks.password', compact('token'));
             }
 
-            if (!Storage::exists($link->file->path)) {
-                Toastr::error('File not found on server.');
-                return redirect()->route('file-manager.index');
+            $file = $link->file;
+
+            // Check if file exists
+            if (!\Storage::exists($file->path)) {
+                abort(404, 'File not found');
             }
 
-            if ($link->can_download) {
-                return Storage::download($link->file->path, $link->file->name);
-            } else {
-                Toastr::info('File download is disabled for this link.');
-                return redirect()->route('file-manager.index');
-            }
+            // Serve file inline
+            $mime = $file->type; // stored in DB
+            return response()->file(storage_path('app/' . $file->path), [
+                'Content-Type' => $mime,
+                'Content-Disposition' => 'inline; filename="'.$file->name.'"'
+            ]);
 
         } catch (\Exception $e) {
             Toastr::error('Invalid link: '.$e->getMessage());
