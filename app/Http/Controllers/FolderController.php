@@ -6,6 +6,7 @@ use App\Models\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ActivityLogTrait;
+use Brian2694\Toastr\Facades\Toastr;
 
 class FolderController extends Controller
 {
@@ -17,7 +18,8 @@ class FolderController extends Controller
             $folders = Folder::where('user_id', auth()->id())->get();
             return view('folder.index', compact('folders'));
         } catch (\Exception $e) {
-            return back()->with('error', 'Unable to fetch folders: ' . $e->getMessage());
+            Toastr::error('Unable to fetch folders: ' . $e->getMessage());
+            return back();
         }
     }
 
@@ -37,10 +39,12 @@ class FolderController extends Controller
             $this->logActivity('create', $folder, 'Folder created: ' . $folder->name);
 
             DB::commit();
-            return back()->with('success', 'Folder created successfully');
+            Toastr::success('Folder created successfully');
+            return back();
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Folder creation failed: ' . $e->getMessage());
+            Toastr::error('Folder creation failed: ' . $e->getMessage());
+            return back();
         }
     }
 
@@ -58,10 +62,12 @@ class FolderController extends Controller
             $this->logActivity('update', $folder, 'Folder updated: ' . $folder->name);
 
             DB::commit();
-            return back()->with('success', 'Folder updated successfully');
+            Toastr::success('Folder updated successfully');
+            return back();
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Folder update failed: ' . $e->getMessage());
+            Toastr::error('Folder update failed: ' . $e->getMessage());
+            return back();
         }
     }
 
@@ -77,10 +83,12 @@ class FolderController extends Controller
             $this->logActivity('delete', $folder, 'Folder deleted: ' . $folder->name);
 
             DB::commit();
-            return back()->with('success', 'Folder deleted successfully');
+            Toastr::success('Folder deleted successfully');
+            return back();
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Folder deletion failed: ' . $e->getMessage());
+            Toastr::error('Folder deletion failed: ' . $e->getMessage());
+            return back();
         }
     }
 }

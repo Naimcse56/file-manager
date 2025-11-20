@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\File;
 use App\Models\Folder;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ActivityLogTrait;
@@ -20,7 +21,8 @@ class FileManagerController extends Controller
             $folders = Folder::where('user_id', auth()->id())->get();
             return view('filemanager.index', compact('files','folders'));
         } catch (\Exception $e) {
-            return back()->with('error','Unable to fetch files or folders: '.$e->getMessage());
+            Toastr::error('Unable to fetch files or folders: '.$e->getMessage());
+            return back();
         }
     }
 
@@ -30,7 +32,8 @@ class FileManagerController extends Controller
             $folders = Folder::where('user_id', auth()->id())->get();
             return view('filemanager.upload', compact('folders'));
         } catch (\Exception $e) {
-            return back()->with('error','Unable to fetch folders: '.$e->getMessage());
+            Toastr::error('Unable to fetch folders: '.$e->getMessage());
+            return back();
         }
     }
 
@@ -60,13 +63,15 @@ class FileManagerController extends Controller
             $this->logActivity('upload', $file, 'File uploaded: '.$file->name);
 
             DB::commit();
-            return redirect()->route('file-manager.index')->with('success', 'File uploaded successfully');
+            Toastr::success('File uploaded successfully');
+            return redirect()->route('file-manager.index');
         } catch (\Exception $e) {
             DB::rollBack();
             if (isset($path) && Storage::exists($path)) {
                 Storage::delete($path); // Cleanup if file was saved
             }
-            return back()->with('error','File upload failed: '.$e->getMessage());
+            Toastr::error('File upload failed: '.$e->getMessage());
+            return back();
         }
     }
 
@@ -77,7 +82,8 @@ class FileManagerController extends Controller
             if (!Storage::exists($file->path)) abort(404);
             return Storage::download($file->path, $file->name);
         } catch (\Exception $e) {
-            return back()->with('error','Download failed: '.$e->getMessage());
+            Toastr::error('Download failed: '.$e->getMessage());
+            return back();
         }
     }
 
@@ -91,10 +97,12 @@ class FileManagerController extends Controller
             $this->logActivity('delete', $file, 'File moved to trash: '.$file->name);
 
             DB::commit();
-            return back()->with('success','File moved to trash');
+            Toastr::success('File moved to trash');
+            return back();
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error','File delete failed: '.$e->getMessage());
+            Toastr::error('File delete failed: '.$e->getMessage());
+            return back();
         }
     }
 
@@ -104,7 +112,8 @@ class FileManagerController extends Controller
             $files = File::onlyTrashed()->where('user_id', auth()->id())->get();
             return view('filemanager.trash', compact('files'));
         } catch (\Exception $e) {
-            return back()->with('error','Unable to fetch trash: '.$e->getMessage());
+            Toastr::error('Unable to fetch trash: '.$e->getMessage());
+            return back();
         }
     }
 
@@ -119,10 +128,12 @@ class FileManagerController extends Controller
             $this->logActivity('restore', $file, 'File restored: '.$file->name);
 
             DB::commit();
-            return back()->with('success','File restored successfully');
+            Toastr::success('File restored successfully');
+            return back();
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error','File restore failed: '.$e->getMessage());
+            Toastr::error('File restore failed: '.$e->getMessage());
+            return back();
         }
     }
 }
