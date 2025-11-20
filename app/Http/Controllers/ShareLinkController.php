@@ -93,7 +93,7 @@ class ShareLinkController extends Controller
 
             // Serve file inline
             $mime = $file->type; // stored in DB
-            return response()->file(storage_path('app/' . $file->path), [
+            return response()->file(storage_path('app/private/' . $file->path), [
                 'Content-Type' => $mime,
                 'Content-Disposition' => 'inline; filename="'.$file->name.'"'
             ]);

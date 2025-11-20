@@ -69,7 +69,6 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::post('/create/{file}', 'store')->name('share-links.store');
         Route::get('/view/{token}', 'view')->name('share-links.view');
         Route::post('/delete/{share}', 'destroy')->name('share-links.delete');
-        Route::post('/verify-password/{token}', 'verifyPassword')->name('share-links.verify');
     });
 
 
@@ -104,4 +103,5 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
 
 Route::controller(ShareLinkController::class)->prefix('/file-manager/share-links')->group(function () {
     Route::get('/view/{token}', 'view')->name('share-links.view');
+    Route::post('/verify-password/{token}', 'verifyPassword')->name('share-links.verify');
 });
