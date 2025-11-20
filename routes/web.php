@@ -63,12 +63,15 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
     | SHARE LINK ROUTES
     |--------------------------------------------------------------------------
     */
+
     Route::controller(ShareLinkController::class)->prefix('/share-links')->group(function () {
         Route::get('/index', 'index')->name('share-links.index');
         Route::post('/create/{file}', 'store')->name('share-links.store');
         Route::get('/view/{token}', 'view')->name('share-links.view');
         Route::post('/delete/{share}', 'destroy')->name('share-links.delete');
+        Route::post('/verify-password/{token}', 'verifyPassword')->name('share-links.verify');
     });
+
 
 
     /*
@@ -97,4 +100,8 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
             $route->get('permission-index/{id}', 'permission_index')->name('user-management.permission-index');
             $route->post('permission-store', 'permission_store')->name('user-management.permission-store');
     });
+});
+
+Route::controller(ShareLinkController::class)->prefix('/file-manager/share-links')->group(function () {
+    Route::get('/view/{token}', 'view')->name('share-links.view');
 });

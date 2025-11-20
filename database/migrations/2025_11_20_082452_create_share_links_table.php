@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('file_id');
             $table->unsignedBigInteger('user_id');
             $table->string('token')->unique();
+            $table->string('password')->nullable(); // optional password
             $table->timestamp('expires_at')->nullable();
             $table->boolean('can_download')->default(true);
             $table->timestamps();
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
     }
 
     /**
