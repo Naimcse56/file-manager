@@ -12,28 +12,24 @@ class FolderController extends Controller
 {
     use ActivityLogTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $folders = Folder::where('user_id', auth()->id())->get();
+            $folders = Folder::query();
+            if ($request->search) {
+                $folders = $folders->where('name', 'LIKE', "%$request->search%");
+            }
+            if (auth()->id() == 1) {
+                $folders = $folders->get();
+            } else {
+                $folders = $folders->where('user_id', auth()->id())->get();
+            }
             return view('folder.index', compact('folders'));
         } catch (\Exception $e) {
             Toastr::error('Unable to fetch folders: ' . $e->getMessage());
             return back();
         }
     }
-
-    public function search(Request $request)
-    {
-        $keyword = $request->search;
-
-        $folders = Folder::where('name', 'LIKE', "%$keyword%")->get();
-
-        return response()->json([
-            'folders' => $folders
-        ]);
-    }
-
 
     public function store(Request $request)
     {
