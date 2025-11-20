@@ -35,9 +35,9 @@ class FolderController extends Controller
     {
         $request->validate(['name' => 'required|string|max:200']);
 
-        DB::beginTransaction();
 
         try {
+            DB::beginTransaction();
             $folder = Folder::create([
                 'name' => $request->name,
                 'user_id' => auth()->id(),
@@ -62,9 +62,8 @@ class FolderController extends Controller
 
         $request->validate(['name' => 'required|string|max:200']);
 
-        DB::beginTransaction();
-
         try {
+            DB::beginTransaction();
             $folder->update(['name' => $request->name]);
 
             $this->logActivity('update', $folder, 'Folder updated: ' . $folder->name);
@@ -83,10 +82,9 @@ class FolderController extends Controller
     {
         $folder = Folder::find($request->id);
         if ($folder->user_id !== auth()->id()) abort(403);
-
-        DB::beginTransaction();
-
+        
         try {
+            DB::beginTransaction();
             $folder->delete();
 
             $this->logActivity('delete', $folder, 'Folder deleted: ' . $folder->name);

@@ -89,8 +89,8 @@ class FileManagerController extends Controller
 
     public function destroy(File $file)
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             if ($file->user_id !== auth()->id()) abort(403);
 
             $file->delete();
@@ -119,8 +119,8 @@ class FileManagerController extends Controller
 
     public function restore($id)
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             $file = File::onlyTrashed()->findOrFail($id);
             if ($file->user_id !== auth()->id()) abort(403);
 
