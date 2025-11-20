@@ -31,6 +31,7 @@ class User extends Authenticatable
         'mobile',
         'role_id',
         'status',
+        'storage_limit_mb',
         'password_changed_for_first_time'
     ];
 
