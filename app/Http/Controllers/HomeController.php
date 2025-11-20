@@ -29,18 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $data['user'] = auth()->user();
-        if (in_array($data['user']->role_id, [4,5])) {
-            return view('mututalassesment::dashboard_ds', $data);
-        } elseif (in_array($data['user']->role_id, [6])) {
-            return view('mututalassesment::dashboard_cp', $data);
-        } else {
-            $data['local_cp'] = User::whereIn('country_id',[0,19])->where('appointment_classification_id', 7)->count();
-            $data['foreign_cp'] = User::whereNotIn('country_id',[0,19])->where('appointment_classification_id', 7)->count();
-            $data['total_group'] = SyndicateGroup::count();
-            $data['total_event'] = AcademicEvent::count();
-            return view('mututalassesment::dashboard_admin', $data);
-            // return view('home');
-        }
+        return view('home');
     }
 
     public function change_password()
