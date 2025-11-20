@@ -71,8 +71,9 @@ class FolderController extends Controller
         }
     }
 
-    public function destroy(Folder $folder)
+    public function destroy(Request $request)
     {
+        $folder = Folder::find($request->id);
         if ($folder->user_id !== auth()->id()) abort(403);
 
         DB::beginTransaction();

@@ -54,7 +54,7 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::post('/store', 'store')->name('folder.store');
         Route::get('/show/{folder}', 'show')->name('folder.show');
         Route::post('/update/{folder}', 'update')->name('folder.update');
-        Route::post('/delete/{folder}', 'destroy')->name('folder.delete');
+        Route::post('/delete', 'destroy')->name('folder.delete');
     });
 
 
