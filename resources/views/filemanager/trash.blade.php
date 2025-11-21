@@ -1,4 +1,7 @@
 @extends('layouts.admin_app')
+@section('title')
+    Recycle Bin
+@endsection
 @section('content')
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Recycle Bin</div>

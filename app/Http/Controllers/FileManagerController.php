@@ -56,9 +56,10 @@ class FileManagerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|max:20480',
-            'folder_id' => 'nullable|exists:folders,id'
+            'file' => 'required|file|mimetypes:image/jpeg,image/png,image/webp,application/pdf,application/zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:20480',
+            'folder_id' => 'nullable|integer|not_in:0|exists:folders,id'
         ]);
+
 
         DB::beginTransaction();
 
@@ -109,7 +110,10 @@ class FileManagerController extends Controller
             DB::beginTransaction();
             $file = File::find($request->id);
             if ($file->user_id !== auth()->id()) abort(403);
-
+            
+            if (Storage::exists($file->path)) {
+                Storage::delete($file->path);
+            }
             $file->delete();
             $this->logActivity('delete', $file, 'File moved to trash: '.$file->name);
 

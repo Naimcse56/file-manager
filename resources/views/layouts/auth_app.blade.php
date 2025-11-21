@@ -4,7 +4,7 @@
 <head>  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+  <link rel="icon" href="{{asset('assets/images/favicon-32x32.png')}}" type="image/png" />
   <title> @yield('title', 'Login') | {{ config('app.name') }}</title>
   <!-- Bootstrap CSS -->
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />

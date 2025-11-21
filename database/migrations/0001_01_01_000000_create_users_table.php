@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
             $table->integer('status')->default(1);
+            $table->integer('has_permit_for_all_access')->default(1);
             $table->integer('storage_limit_mb')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -49,6 +50,7 @@ return new class extends Migration
             'email' => 'admin@example.com',
             'role_id' => 1,
             'password_changed_for_first_time' => 1,
+            'has_permit_for_all_access' => 1,
             'status' => 1,
             'password' => Hash::make('admin@example.com'),
         ]);

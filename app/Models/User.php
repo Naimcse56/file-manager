@@ -32,7 +32,8 @@ class User extends Authenticatable
         'role_id',
         'status',
         'storage_limit_mb',
-        'password_changed_for_first_time'
+        'password_changed_for_first_time',
+        'has_permit_for_all_access'
     ];
 
     /**

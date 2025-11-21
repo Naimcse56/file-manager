@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Brian2694\Toastr\Facades\Toastr;
 use Modules\MututalAssesment\Models\SyndicateGroup;
-use Modules\MututalAssesment\Models\AcademicEvent;
+use App\Models\File;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -28,8 +28,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['user'] = auth()->user();
-        return view('home');
+        $data['type_wise_count'] = File::where('user_id', auth()->id())
+                        ->selectRaw("
+                            CASE
+                                WHEN type LIKE 'image/%' THEN 'Images'
+                                WHEN type = 'application/pdf' THEN 'PDF'
+                                WHEN type LIKE '%zip%' THEN 'ZIP'
+                                WHEN type LIKE '%word%' THEN 'Word'
+                                WHEN type LIKE '%excel%' THEN 'Excel'
+                                ELSE 'Other'
+                            END as category,
+                            COUNT(*) as total
+                        ")
+                        ->groupBy('category')
+                        ->get();
+        $data['type_wise_size'] = File::where('user_id', auth()->id())
+                        ->selectRaw("
+                            type,
+                            SUM(size) / 1024 / 1024 AS total_mb
+                        ")
+                        ->groupBy('type')
+                        ->get();
+        return view('home',$data);
     }
 
     public function change_password()

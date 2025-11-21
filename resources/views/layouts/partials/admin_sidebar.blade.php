@@ -12,6 +12,13 @@
    <!--navigation-->
    <ul class="metismenu" id="menu">
 
+      <li>
+         <a href="{{route('home')}}">
+            <div class="parent-icon"><i class="bi bi-house-door"></i>
+            </div>
+            <div class="menu-title">Dashboard</div>
+         </a>
+      </li>
       {{-- USER MANAGEMENT / SYSTEM SETTING --}}
       @canany(['role-list', 'user-list'])
       <li>
