@@ -11,6 +11,12 @@ use App\Http\Controllers\ActivityLogController;
 
 Auth::routes(['register' => false]);
 
+
+if (env('APP_INSTALLED') != true) {
+    require base_path('routes/install.php');
+    return; // Install না হলে web.php এর বাকি route লোড হবে না
+}
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/file-manager/change-password', [HomeController::class, 'change_password'])->name('change_password');
