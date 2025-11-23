@@ -63,6 +63,22 @@ class FolderController extends Controller
         return view('folder.edit', compact('folder'));
     }
 
+    public function show($id)
+    {
+        $detailFolder = Folder::find($id);
+        if ($detailFolder->user_id !== auth()->id()) abort(403);
+
+        return view('folder.show', compact('detailFolder'));
+    }
+
+    public function show_files($id)
+    {
+        $detailFolder = Folder::find($id);
+        if ($detailFolder->user_id !== auth()->id()) abort(403);
+
+        return view('folder.show_files', compact('detailFolder'));
+    }
+
     public function update(Request $request, Folder $folder)
     {
         if ($folder->user_id !== auth()->id()) abort(403);

@@ -45,6 +45,34 @@ class FileManagerController extends Controller
         }
     }
 
+    public function file_index(Request $request)
+    {
+        try {
+            if ($request->ajax()) {
+                if (auth()->user()->has_permit_for_all_access == 0) {
+                    $data = File::with(['folder:id,name'])->whereNull('deleted_at')->where('folder_id', $request->folder_id)->where('user_id', auth()->id());
+                } else {
+                    $data = File::with(['folder:id,name'])->whereNull('deleted_at')->where('folder_id', $request->folder_id);
+                }
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('size', function ($row) {
+                        return number_format($row->size/1024,2);
+                    })
+                    ->editColumn('name', function ($row) {
+                        return $row->name;
+                    })
+                    ->addColumn('action', function ($row) {
+                        return view('filemanager.component.action', compact('row'));
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
     public function uploadPage()
     {
         try {

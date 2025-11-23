@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
     */
     Route::controller(FileManagerController::class)->prefix('/file-manager')->group(function () {
         Route::get('/index', 'index')->name('file-manager.index');
+        Route::get('/index-by-folder', 'file_index')->name('file-manager.file_index');
         Route::get('/upload', 'uploadPage')->name('file-manager.upload');
         Route::post('/store', 'store')->name('file-manager.store');
         Route::get('/download/{file}', 'download')->name('file-manager.download');
@@ -51,7 +52,8 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
         Route::get('/index', 'index')->name('folder.index');
         Route::post('/store', 'store')->name('folder.store');
         Route::get('/edit/{id}', 'edit')->name('folder.edit');
-        Route::get('/show/{folder}', 'show')->name('folder.show');
+        Route::get('/show/{id}', 'show')->name('folder.show');
+        Route::get('/show-files/{id}', 'show_files')->name('folder.show_files');
         Route::post('/update/{folder}', 'update')->name('folder.update');
         Route::post('/delete', 'destroy')->name('folder.delete');
         Route::get('/select-list-ajax', 'list_for_select_ajax')->name('folder.list_for_select_ajax');
