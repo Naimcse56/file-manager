@@ -65,6 +65,7 @@ class UserController extends Controller
                 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'password' => 'nullable|string|min:6',
                 'role_id' => 'nullable|integer|exists:roles,id',
+                'has_permit_for_all_access' => 'required'
             ]);
 
             if ($request->hasFile('photo')) {
@@ -82,6 +83,7 @@ class UserController extends Controller
                 'avatar' => $photoPath,
                 'password' => Hash::make($validated['password']),
                 'role_id' => $validated['role_id'],
+                'has_permit_for_all_access' => $validated['has_permit_for_all_access'],
             ]);
             $role = Role::find($validated['role_id']);
             $user->syncRoles([$role->name]);
@@ -116,6 +118,7 @@ class UserController extends Controller
                 'role_id' => 'nullable|integer',
                 'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'password' => 'nullable|string|min:6',
+                'has_permit_for_all_access' => 'required'
             ]);
             $user->fill(collect($validatedData)->except(['password', 'photo', 'signature'])->toArray());
             if ($request->filled('password')) {

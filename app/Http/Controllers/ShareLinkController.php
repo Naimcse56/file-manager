@@ -20,8 +20,14 @@ class ShareLinkController extends Controller
     public function index()
     {
         try {
-            $links = ShareLink::where('user_id', auth()->id())->with('file')->get();
-            $files = File::where('user_id', auth()->id())->get();
+            if (auth()->user()->has_permit_for_all_access == 0) {
+                $links = ShareLink::where('user_id', auth()->id())->with('file')->get();
+                $files = File::where('user_id', auth()->id())->get();
+            } else {
+                $links = ShareLink::get();
+                $files = File::get();
+            }
+            
             return view('sharelinks.index', compact('links', 'files'));
         } catch (\Exception $e) {
             Toastr::error('Unable to fetch share links: '.$e->getMessage());

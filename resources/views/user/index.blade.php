@@ -52,6 +52,13 @@
 								@endforeach
 							</select>
 						</div>
+						<div class="col-xl-4">
+							<label class="form-label">Access <span class="text-danger">*<span></label>
+							<select class="form-select single-select" id="has_permit_for_all_access" name="has_permit_for_all_access" required>
+								<option value="0" selected>Self Created Files</option>
+								<option value="1">All Files</option>
+							</select>
+						</div>
 
 						<div class="submit text-end">
 							<button type="submit" class="btn btn-primary px-5">Submit</button>

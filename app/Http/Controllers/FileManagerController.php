@@ -19,8 +19,11 @@ class FileManagerController extends Controller
     {
         try {
             if ($request->ajax()) {
-                $data = File::with(['folder:id,name'])->whereNull('deleted_at')->where('user_id', auth()->id());
-
+                if (auth()->user()->has_permit_for_all_access == 0) {
+                    $data = File::with(['folder:id,name'])->whereNull('deleted_at')->where('user_id', auth()->id());
+                } else {
+                    $data = File::with(['folder:id,name'])->whereNull('deleted_at');
+                }
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('size', function ($row) {
@@ -129,7 +132,11 @@ class FileManagerController extends Controller
     {
         try {
             if ($request->ajax()) {
-                $data = File::with(['folder:id,name'])->onlyTrashed()->where('user_id', auth()->id());
+                if (auth()->user()->has_permit_for_all_access == 0) {
+                    $data = File::with(['folder:id,name'])->onlyTrashed()->where('user_id', auth()->id());
+                } else {
+                    $data = File::with(['folder:id,name'])->onlyTrashed();
+                }
 
                 return Datatables::of($data)
                     ->addIndexColumn()

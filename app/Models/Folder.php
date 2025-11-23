@@ -9,7 +9,7 @@ class Folder extends Model
     protected $fillable = ['name','parent_id','user_id','path'];
 
     public function parent() {
-        return $this->belongsTo(Folder::class, 'parent_id');
+        return $this->belongsTo(Folder::class, 'parent_id')->withDefault(['name' => 'N/A']);
     }
 
     public function children() {
@@ -21,6 +21,6 @@ class Folder extends Model
     }
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault(['name' => 'N/A']);
     }
 }

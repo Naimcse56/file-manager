@@ -19,10 +19,10 @@ class FolderController extends Controller
             if ($request->search) {
                 $folders = $folders->where('name', 'LIKE', "%$request->search%");
             }
-            if (auth()->id() == 1) {
-                $folders = $folders->get();
+            if (auth()->user()->has_permit_for_all_access == 1) {
+                $folders = $folders->whereNull('parent_id')->get();
             } else {
-                $folders = $folders->where('user_id', auth()->id())->get();
+                $folders = $folders->whereNull('parent_id')->where('user_id', auth()->id())->get();
             }
             return view('folder.index', compact('folders'));
         } catch (\Exception $e) {
@@ -34,9 +34,10 @@ class FolderController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate(['name' => 'required|string|max:200']);
+            $request->validate(['name' => 'required|string|max:200','parent_id' => 'nullable|integer']);
             DB::beginTransaction();
             $folder = Folder::create([
+                'parent_id' => $request->parent_id > 0 ? $request->parent_id : null,
                 'name' => $request->name,
                 'user_id' => auth()->id(),
                 'path' => '/folder/' . $request->name,
@@ -54,21 +55,28 @@ class FolderController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $folder = Folder::find($id);
+        if ($folder->user_id !== auth()->id()) abort(403);
+
+        return view('folder.edit', compact('folder'));
+    }
+
     public function update(Request $request, Folder $folder)
     {
         if ($folder->user_id !== auth()->id()) abort(403);
 
-        $request->validate(['name' => 'required|string|max:200']);
-
         try {
+            $request->validate(['name' => 'required|string|max:200','parent_id' => 'nullable|integer']);
             DB::beginTransaction();
-            $folder->update(['name' => $request->name]);
+            $folder->update(['name' => $request->name,'parent_id' => $request->parent_id > 0 ? $request->parent_id : null]);
 
             $this->logActivity('update', $folder, 'Folder updated: ' . $folder->name);
 
             DB::commit();
             Toastr::success('Folder updated successfully');
-            return back();
+            return redirect()->route('folder.index');
         } catch (\Exception $e) {
             DB::rollBack();
             Toastr::error('Folder update failed: ' . $e->getMessage());

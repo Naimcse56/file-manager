@@ -50,6 +50,7 @@ Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file
     Route::controller(FolderController::class)->prefix('/folders')->group(function () {
         Route::get('/index', 'index')->name('folder.index');
         Route::post('/store', 'store')->name('folder.store');
+        Route::get('/edit/{id}', 'edit')->name('folder.edit');
         Route::get('/show/{folder}', 'show')->name('folder.show');
         Route::post('/update/{folder}', 'update')->name('folder.update');
         Route::post('/delete', 'destroy')->name('folder.delete');
