@@ -1508,7 +1508,7 @@ a {
     justify-content: center;
     margin: auto;
     max-width: 60rem;
-    height: 60vh;
+    height: 100vh;
 }
 
 .login-separater span {
