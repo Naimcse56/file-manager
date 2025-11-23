@@ -112,7 +112,7 @@ class FileManagerController extends Controller
 
             DB::commit();
             Toastr::success('File uploaded successfully');
-            return redirect()->route('file-manager.index');
+            return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
             if (isset($path) && Storage::exists($path)) {
