@@ -20,7 +20,7 @@
          </a>
       </li>
       {{-- USER MANAGEMENT / SYSTEM SETTING --}}
-      @canany(['role-list', 'user-list'])
+      @canany(['role-list', 'user-list','email-config'])
       <li>
          <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="bi bi-grid"></i></div>
@@ -43,7 +43,7 @@
             </li>
             @endcanany
 
-            @can('user-list')
+            @can('email-config')
             <li class="@if (Route::is('email_configure')) mm-active @endif">
                <a href="{{ route('email_configure') }}">
                   <i class="bi bi-arrow-right-short"></i>Email Config
