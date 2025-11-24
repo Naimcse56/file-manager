@@ -11,21 +11,7 @@ use App\Http\Controllers\ActivityLogController;
 
 Auth::routes(['register' => false]);
 
-$statusFile = storage_path('app/public/installed_status.json');
-
-// Check if file exists
-if (file_exists($statusFile)) {
-    $content = file_get_contents($statusFile);
-    $data = json_decode($content, true);
-    if (isset($data['installed']) && $data['installed'] === false) {
-        require base_path('routes/install.php');
-        return;
-    }
-
-} else {
-   require base_path('routes/install.php');
-   return;
-}
+require base_path('routes/install.php');
 
 Route::middleware(['auth', 'verified', 'check_installation'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
