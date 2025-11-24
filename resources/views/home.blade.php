@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <h6 class="mb-0 text-uppercase">Total Summary </h6>
+        <h6 class="mb-3 text-uppercase">Total Summary </h6>
         <hr>
         <div class="col-md-3">
             <div class="card radius-10 bg-purple">
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row">
-        <h6 class="mb-0 text-uppercase">Total Count Statistic</h6>
+        <h6 class="mb-3 text-uppercase">Total Count Statistic</h6>
         <hr>
         @foreach ($type_wise_count as $item)
             <div class="col-md-3">
@@ -56,7 +56,7 @@
         @endforeach
     </div>
     <div class="row">
-        <h6 class="mb-0 text-uppercase">Size Statistic</h6>
+        <h6 class="mb-3 text-uppercase">Size Statistic</h6>
         <hr>
         @foreach ($type_wise_size as $item)
             <div class="col-md-3">

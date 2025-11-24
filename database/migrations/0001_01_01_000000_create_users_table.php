@@ -45,15 +45,15 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        User::create([
-            'name' => 'Mr Super Admin',
-            'email' => 'admin@example.com',
-            'role_id' => 1,
-            'password_changed_for_first_time' => 1,
-            'has_permit_for_all_access' => 1,
-            'status' => 1,
-            'password' => Hash::make('admin@example.com'),
-        ]);
+        // User::create([
+        //     'name' => 'Mr Super Admin',
+        //     'email' => 'admin@example.com',
+        //     'role_id' => 1,
+        //     'password_changed_for_first_time' => 1,
+        //     'has_permit_for_all_access' => 1,
+        //     'status' => 1,
+        //     'password' => Hash::make('admin@example.com'),
+        // ]);
     }
 
     /**

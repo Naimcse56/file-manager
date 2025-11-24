@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -44,7 +45,7 @@ class InstallerController extends Controller
 
         // Write to .env
         $this->updateEnv($data);
-
+        \Artisan::call('key:generate', ['--force' => true]);
         Toastr::success('Setup successfully');
         return redirect()->route('install.fourth_step');
     }
@@ -53,6 +54,7 @@ class InstallerController extends Controller
     {
         try {
             \Artisan::call('migrate', ['--force' => true]);
+            sleep(1);
             return view('install.fourth_step');
         } catch (\Exception $e) {dd($e->getMessage());
             Toastr::error('Migration failed: '.$e->getMessage());

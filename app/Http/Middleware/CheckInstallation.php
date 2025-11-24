@@ -13,26 +13,38 @@ class CheckInstallation
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+     public function handle($request, Closure $next)
     {
         $statusFile = storage_path('app/public/installed_status.json');
 
-        // Check if file exists
+        $isInstalled = false;
+
+        // If file exists + installed = true
         if (file_exists($statusFile)) {
-
-            // Read file
             $json = file_get_contents($statusFile);
-
-            // Decode JSON
             $data = json_decode($json, true);
 
-            // If installed = true → block installer
             if (isset($data['installed']) && $data['installed'] === true) {
-                return redirect('/');   // Already installed
+                $isInstalled = true;
             }
         }
 
-        // Otherwise continue
+        $isInstallRoute = $request->routeIs('install.*');
+
+        /* --------------------------------------
+           CASE 1: Not installed → Only installer allowed
+        ----------------------------------------- */
+        if (!$isInstalled && !$isInstallRoute) {
+            return redirect()->route('install.first_step');
+        }
+
+        /* --------------------------------------
+           CASE 2: Installed → Installer blocked
+        ----------------------------------------- */
+        if ($isInstalled && $isInstallRoute) {
+            return redirect('/');
+        }
+
         return $next($request);
     }
 }
