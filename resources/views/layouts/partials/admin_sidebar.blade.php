@@ -99,12 +99,14 @@
 
 
       {{-- ACTIVITY LOG (Admin Only) --}}
+      @can('activity-logs')
       <li class="@if (Route::is('activity-log.*')) mm-active @endif">
          <a href="{{ route('activity-log.index') }}">
             <div class="parent-icon"><i class="bi bi-clipboard-data"></i></div>
             <div class="menu-title">Activity Logs</div>
          </a>
       </li>
+      @endcan
 
    </ul>
    <!--end navigation-->

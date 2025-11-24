@@ -8,6 +8,10 @@ use DataTables;
 
 class ActivityLogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:activity-logs', ['only' => ['index']]);
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {

@@ -29,6 +29,8 @@ class PermissionSeeder extends Seeder
             ['name' => 'role-permission','module' => 'User-Management', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
 
             ['name' => 'email-config','module' => 'Configuration', 'sub_module' => 'configuration','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+
+            ['name' => 'activity-logs','module' => 'Activity-Logs', 'sub_module' => 'activity-logs','guard_name' => 'web', 'parent_menu' => 'File Manager'],
         ];
 
 
