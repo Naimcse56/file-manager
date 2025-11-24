@@ -39,7 +39,7 @@ class PermissionSeeder extends Seeder
         $role = Role::first();
         $role->syncPermissions(Permission::all());
 
-        $user = User::find(1);
-        $user->syncRoles([$role->name]);
+        // $user = User::find(1);
+        // $user->syncRoles([$role->name]);
     }
 }

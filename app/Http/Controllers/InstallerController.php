@@ -55,9 +55,9 @@ class InstallerController extends Controller
     {
         try {
             \Artisan::call('migrate', ['--force' => true]);
-            sleep(1);
+            sleep(2);
             \Artisan::call('db:seed', ['--force' => true]);
-            sleep(1);
+            sleep(3);
             return view('install.fourth_step');
         } catch (\Exception $e) {dd($e->getMessage());
             Toastr::error('Migration failed: '.$e->getMessage());
@@ -104,6 +104,7 @@ class InstallerController extends Controller
             'password_changed_for_first_time' => 1,
             'has_permit_for_all_access' => 1,
             'status' => 1,
+            'role_id' => 1,
         ]);
         $role = Role::first();
         $user->syncRoles([$role->name]);

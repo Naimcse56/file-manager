@@ -19,7 +19,6 @@ class CheckInstallation
 
         $isInstalled = false;
 
-        // If file exists + installed = true
         if (file_exists($statusFile)) {
             $json = file_get_contents($statusFile);
             $data = json_decode($json, true);
@@ -30,17 +29,10 @@ class CheckInstallation
         }
 
         $isInstallRoute = $request->routeIs('install.*');
-
-        /* --------------------------------------
-           CASE 1: Not installed → Only installer allowed
-        ----------------------------------------- */
         if (!$isInstalled && !$isInstallRoute) {
             return redirect()->route('install.first_step');
         }
 
-        /* --------------------------------------
-           CASE 2: Installed → Installer blocked
-        ----------------------------------------- */
         if ($isInstalled && $isInstallRoute) {
             return redirect('/');
         }
