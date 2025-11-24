@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class InstallerController extends Controller
 {
@@ -104,6 +105,8 @@ class InstallerController extends Controller
             'has_permit_for_all_access' => 1,
             'status' => 1,
         ]);
+        $role = Role::first();
+        $user->syncRoles([$role->name]);
         file_put_contents(storage_path('installed'), 'installed');
 
         $status = [
