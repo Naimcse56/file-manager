@@ -29,14 +29,6 @@
                 <hr class="dropdown-divider">
             </li>
             <li>
-                <a class="dropdown-item" href="pages-user-profile.html">
-                <div class="d-flex align-items-center">
-                    <div class="setting-icon"><i class="bi bi-person-fill"></i></div>
-                    <div class="setting-text ms-3"><span>My Profile</span></div>
-                </div>
-                </a>
-            </li>
-            <li>
                 <a class="dropdown-item" href="{{route('change_password')}}">
                 <div class="d-flex align-items-center">
                     <div class="setting-icon"><i class="bi bi-gear-fill"></i></div>
