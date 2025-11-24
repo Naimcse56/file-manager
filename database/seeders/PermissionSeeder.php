@@ -17,18 +17,18 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
 
-            ['name' => 'user-list','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
-            ['name' => 'user-create','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
-            ['name' => 'user-edit','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
-            ['name' => 'user-show','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
-            ['name' => 'user-delete','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-list','module' => 'User-Management', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-create','module' => 'User-Management', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-edit','module' => 'User-Management', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-show','module' => 'User-Management', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-delete','module' => 'User-Management', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
 
-            ['name' => 'role-list','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
-            ['name' => 'role-create','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
-            ['name' => 'role-edit','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
-            ['name' => 'role-permission','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'role-list','module' => 'User-Management', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'role-create','module' => 'User-Management', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'role-edit','module' => 'User-Management', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'role-permission','module' => 'User-Management', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
 
-            ['name' => 'email-config','module' => 'System-Settings', 'sub_module' => 'configuration','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'email-config','module' => 'Configuration', 'sub_module' => 'configuration','guard_name' => 'web', 'parent_menu' => 'File Manager'],
         ];
 
 
