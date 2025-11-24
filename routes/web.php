@@ -11,10 +11,22 @@ use App\Http\Controllers\ActivityLogController;
 
 Auth::routes(['register' => false]);
 
+$statusFile = storage_path('app/public/installed_status.json');
 
-if (env('APP_INSTALLED') != true) {
-    require base_path('routes/install.php');
-    return; // Install না হলে web.php এর বাকি route লোড হবে না
+// Check if file exists
+if (file_exists($statusFile)) {
+    $content = file_get_contents($statusFile);
+    $data = json_decode($content, true);
+    if (isset($data['installed']) && $data['installed'] === true) {
+        echo "App is already installed.";
+    } else {
+        require base_path('routes/install.php');
+        return;
+    }
+
+} else {
+   require base_path('routes/install.php');
+   return;
 }
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -100,6 +100,20 @@ class InstallerController extends Controller
             'has_permit_for_all_access' => 1,
             'status' => 1,
         ]);
+        file_put_contents(storage_path('installed'), 'installed');
+
+        $status = [
+            'installed' => true,
+            'installed_at' => now()->toDateTimeString(),
+        ];
+
+        // Ensure folder exists
+        $statusFolder = storage_path('app/public');
+        if (!file_exists($statusFolder)) {
+            mkdir($statusFolder, 0755, true);
+        }
+
+        file_put_contents($statusFolder . '/installed_status.json', json_encode($status, JSON_PRETTY_PRINT));
 
         Toastr::success('Setup successfully. Login Now.');
         return redirect()->route('login');
