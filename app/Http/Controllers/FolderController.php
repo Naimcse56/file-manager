@@ -125,6 +125,10 @@ class FolderController extends Controller
         if ($request->search != '') {
             $items = $items->whereLike(['name'], $request->search);
         }
+        
+        if (auth()->user()->has_permit_for_all_access == 0) {
+            $items = $items->where('user_id', auth()->id());
+        }
         $items = $items->paginate(10,['id','name']);
         $response = [];
         foreach($items as $item){
