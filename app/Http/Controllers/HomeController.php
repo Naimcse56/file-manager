@@ -128,6 +128,6 @@ class HomeController extends Controller
         Artisan::call('config:clear');
 
         Toastr::success("Updated successfully!");
-        return redirect()->back();
+        return redirect()->route('email_configure');
     }
 }

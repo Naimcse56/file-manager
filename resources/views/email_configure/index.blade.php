@@ -60,10 +60,6 @@
                         <div class="submit text-end mt-4">
                             <button type="submit" class="btn btn-primary px-5">Update</button>
                         </div>
-
-                        <div class="submit text-end mt-4">
-                            <button type="Submit" class="btn btn-primary px-5">Update</button>
-                        </div>
                     </form>
 
                 </div>
