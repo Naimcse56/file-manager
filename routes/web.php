@@ -17,7 +17,7 @@ $statusFile = storage_path('app/public/installed_status.json');
 if (file_exists($statusFile)) {
     $content = file_get_contents($statusFile);
     $data = json_decode($content, true);
-    if (isset($data['installed']) && $data['installed'] != true) {
+    if (isset($data['installed']) && $data['installed'] === false) {
         require base_path('routes/install.php');
         return;
     }
