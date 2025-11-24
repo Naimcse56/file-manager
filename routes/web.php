@@ -15,6 +15,8 @@ require base_path('routes/install.php');
 
 Route::middleware(['auth', 'verified', 'check_installation'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/email-config', [HomeController::class, 'email_configure'])->name('email_configure');
+    Route::post('/email-config-update', [HomeController::class, 'email_configure_update'])->name('email_configure_update');
     Route::get('/file-manager/change-password', [HomeController::class, 'change_password'])->name('change_password');
     Route::post('/file-manager/update-change-password', [HomeController::class, 'update_change_password'])->name('update_change_password');
 });

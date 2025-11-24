@@ -17,16 +17,18 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
 
-            ['name' => 'user-list','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
-            ['name' => 'user-create','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
-            ['name' => 'user-edit','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
-            ['name' => 'user-show','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
-            ['name' => 'user-delete','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
+            ['name' => 'user-list','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-create','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-edit','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-show','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'user-delete','module' => 'System-Settings', 'sub_module' => 'User','guard_name' => 'web', 'parent_menu' => 'File Manager'],
 
-            ['name' => 'role-list','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
-            ['name' => 'role-create','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
-            ['name' => 'role-edit','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
-            ['name' => 'role-permission','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'Mutual Assesment'],
+            ['name' => 'role-list','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'role-create','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'role-edit','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+            ['name' => 'role-permission','module' => 'System-Settings', 'sub_module' => 'role','guard_name' => 'web', 'parent_menu' => 'File Manager'],
+
+            ['name' => 'email-config','module' => 'System-Settings', 'sub_module' => 'configuration','guard_name' => 'web', 'parent_menu' => 'File Manager'],
         ];
 
 

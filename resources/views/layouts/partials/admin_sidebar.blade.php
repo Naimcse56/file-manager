@@ -42,6 +42,14 @@
                </a>
             </li>
             @endcanany
+
+            @can('user-list')
+            <li class="@if (Route::is('email_configure')) mm-active @endif">
+               <a href="{{ route('email_configure') }}">
+                  <i class="bi bi-arrow-right-short"></i>Email Config
+               </a>
+            </li>
+            @endcan
          </ul>
       </li>
       @endcanany
