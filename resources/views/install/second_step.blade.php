@@ -14,45 +14,52 @@
                 </div>
                 <div class="row g-3">
                     <div class="col-12">
+                        <label for="email" class="form-label">APP NAME</label>
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bx bx-chevron-right-circle"></i></div>
+                            <input type="text" class="form-control radius-30 ps-5" id="APP_NAME" @error('APP_NAME') is-invalid @enderror placeholder="APP_NAME" name="APP_NAME" value="{{ old('APP_NAME') }}" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <label for="email" class="form-label">DB CONNECTION</label>
                         <div class="ms-auto position-relative">
-                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
-                            <input type="text" class="form-control radius-30 ps-5" id="DB_CONNECTION" @error('DB_CONNECTION') is-invalid @enderror placeholder="DB CONNECTION" name="DB_CONNECTION" value="{{ old('DB_CONNECTION') }}" required>
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bx bx-chevron-right-circle"></i></div>
+                            <input type="text" class="form-control radius-30 ps-5" id="DB_CONNECTION" @error('DB_CONNECTION') is-invalid @enderror placeholder="DB CONNECTION" name="DB_CONNECTION" value="{{ old('DB_CONNECTION')??'mysql' }}" required>
                         </div>
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label">DB HOST</label>
                         <div class="ms-auto position-relative">
-                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
-                            <input type="text" class="form-control radius-30 ps-5" id="DB_HOST" @error('DB_HOST') is-invalid @enderror placeholder="DB HOST" name="DB_HOST" value="{{ old('DB_HOST') }}" required>
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bx bx-chevron-right-circle"></i></div>
+                            <input type="text" class="form-control radius-30 ps-5" id="DB_HOST" @error('DB_HOST') is-invalid @enderror placeholder="DB HOST" name="DB_HOST" value="{{ old('DB_HOST')??'127.0.0.1' }}" required>
                         </div>
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label">DB PORT</label>
                         <div class="ms-auto position-relative">
-                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
-                            <input type="text" class="form-control radius-30 ps-5" id="DB_PORT" @error('DB_PORT') is-invalid @enderror placeholder="DB PORT" name="DB_PORT" value="{{ old('DB_PORT') }}" required>
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bx bx-chevron-right-circle"></i></div>
+                            <input type="text" class="form-control radius-30 ps-5" id="DB_PORT" @error('DB_PORT') is-invalid @enderror placeholder="DB PORT" name="DB_PORT" value="{{ old('DB_PORT')??'3306' }}" required>
                         </div>
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label">DB DATABASE</label>
                         <div class="ms-auto position-relative">
-                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bx bx-chevron-right-circle"></i></div>
                             <input type="text" class="form-control radius-30 ps-5" id="DB_DATABASE" @error('DB_DATABASE') is-invalid @enderror placeholder="DB DATABASE" name="DB_DATABASE" value="{{ old('DB_DATABASE') }}" required>
                         </div>
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label">DB USERNAME</label>
                         <div class="ms-auto position-relative">
-                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bx bx-chevron-right-circle"></i></div>
                             <input type="text" class="form-control radius-30 ps-5" id="DB_USERNAME" @error('DB_USERNAME') is-invalid @enderror placeholder="DB USERNAME" name="DB_USERNAME" value="{{ old('DB_USERNAME') }}" required>
                         </div>
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label">DB PASSWORD</label>
                         <div class="ms-auto position-relative">
-                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"></div>
-                            <input type="text" class="form-control radius-30 ps-5" id="DB_PASSWORD" @error('DB_PASSWORD') is-invalid @enderror placeholder="DB PASSWORD" name="DB_PASSWORD" value="{{ old('DB_PASSWORD') }}" required>
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bx bx-chevron-right-circle"></i></div>
+                            <input type="text" class="form-control radius-30 ps-5" id="DB_PASSWORD" @error('DB_PASSWORD') is-invalid @enderror placeholder="DB PASSWORD" name="DB_PASSWORD" value="{{ old('DB_PASSWORD') }}">
                         </div>
                     </div>
                     <div class="col-12">

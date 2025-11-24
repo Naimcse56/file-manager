@@ -14,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link href="{{asset('assets/css/bootstrap-icons.css')}}" rel="stylesheet">
 	<link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet" />
 </head>
 <body>
     
@@ -31,5 +32,7 @@
 </body>
 <script src="{{asset('assets/frontend/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/frontend/js/pace.min.js')}}"></script>
+<script src="{{asset('assets/js/toastr.min.js')}}"></script>
+{!! Toastr::message() !!}
 </body>
 </html>
