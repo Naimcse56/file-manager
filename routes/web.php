@@ -17,9 +17,7 @@ $statusFile = storage_path('app/public/installed_status.json');
 if (file_exists($statusFile)) {
     $content = file_get_contents($statusFile);
     $data = json_decode($content, true);
-    if (isset($data['installed']) && $data['installed'] === true) {
-        echo "App is already installed.";
-    } else {
+    if (isset($data['installed']) && $data['installed'] != true) {
         require base_path('routes/install.php');
         return;
     }
@@ -29,13 +27,13 @@ if (file_exists($statusFile)) {
    return;
 }
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'check_installation'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/file-manager/change-password', [HomeController::class, 'change_password'])->name('change_password');
     Route::post('/file-manager/update-change-password', [HomeController::class, 'update_change_password'])->name('update_change_password');
 });
 
-Route::middleware(['auth', 'verified', 'check_password_changed'])->prefix('/file-manager')->group(function () {
+Route::middleware(['auth', 'verified', 'check_password_changed', 'check_installation'])->prefix('/file-manager')->group(function () {
     Route::controller(UserController::class)->prefix('/users')->group(function () {
         Route::get('/index', 'index')->name('user.index');
         Route::post('/store', 'store')->name('user.store');

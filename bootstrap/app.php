@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'check_password_changed' => \App\Http\Middleware\IsPasswordChanged::class,
+            'check_installation' => \App\Http\Middleware\CheckInstallation::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

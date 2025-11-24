@@ -16,8 +16,9 @@ class CheckInstallation
     public function handle($request, Closure $next)
     {
         if (file_exists(storage_path('installed'))) {
-            return redirect('/');
+            return $next($request);
+        }else {
+            return redirect()->route('install.first_step');
         }
-        return $next($request);
     }
 }
