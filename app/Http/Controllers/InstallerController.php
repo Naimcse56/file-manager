@@ -55,9 +55,7 @@ class InstallerController extends Controller
     {
         try {
             \Artisan::call('migrate', ['--force' => true]);
-            sleep(2);
             \Artisan::call('db:seed', ['--force' => true]);
-            sleep(3);
             return view('install.fourth_step');
         } catch (\Exception $e) {dd($e->getMessage());
             Toastr::error('Migration failed: '.$e->getMessage());
